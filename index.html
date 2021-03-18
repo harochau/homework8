@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+
+    <section id="picturesHere"> 
+        <!-- <div><img src="im/red.jpg" style="width: 300px" alt="">
+            <p><a href="https://msj.by/katolicheskie-xramy/krasnyj-kostel-v-minske/ ">Красный костел
+            </a></p>
+        </div> -->
+    </section>
+
+    <section id="bigPicture"></section>
+
+    <script>
+        let gallery = [
+        {
+            fname: 'red.jpg',
+            wpic: '300',
+            title: 'Красный костел',
+            link: 'https://msj.by/katolicheskie-xramy/krasnyj-kostel-v-minske/',
+            description: 'В храме святого Симеона и святой Елены находится полномасштабная копия Туринской Плащаницы.'
+        },
+        {
+            fname: 'troi.jpg',
+            wpic: '300',
+            title: 'Троицкое предместье',
+            link: 'https://www.belarus.by/ru/travel/belarus-life/trinity-suburb',
+            description: 'Троицкое предместье — исторический район города Минска, расположенный в северо-восточной части исторического центра на левом берегу реки Свислочь.'
+        },
+        {
+            fname: 'mir.jpg',
+            wpic: '300',
+            title: 'Мирский замок',
+            link: 'https://mirzamak.by/',
+            description: 'Построенный в начале XVI в. магнатом Ю. И. Ильиничем замок стал первым частнособственническим замком на землях Белоруссии.'
+        },
+        ];
+
+        let s = '';
+
+        for (i=0; i<gallery.length; i++) {
+            s += `
+            <div><img src="im/${gallery[i].fname}" style="width: ${gallery[i].wpic}px" 
+                alt="${gallery[i].title}" 
+        onclick="showPicture('${gallery[i].fname}',
+        '${gallery[i].description}')">
+            <p><a href="${gallery[i].link}" target="_blank">
+                ${gallery[i].title}
+            </a></p>
+        </div>
+            `;
+        }
+        picturesHere.innerHTML = s;   
+
+        function showPicture(p, d) {
+            // alert(p + ' ' + d);
+            bigPicture.innerHTML = `
+            <img onclick="bigPicture.innerHTML=''" src="im/${p}" style="width: 1000px">
+            <p>${d}</p>
+            `;
+
+        }
+    
+    let f = document.getElementById('picturesHere');
+    let p = f.getElementsByTagName('p');
+    let a = f.getElementsByTagName('a');
+    // p и a - массивы
+    
+    for (j=0; j<p.length; j++) {
+        p[j].style = `
+                font-size: 18pt;
+                text-align: center;
+                
+        `;
+        a[j].style = `
+        text-decoration: none;
+        color: blue;
+        `;
+    }
+
+
+
+
+    </script>
+
+
+</body>
+</html>

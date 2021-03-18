@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework8. As at lesson 10.</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body onload="redraw()">
+    <section id="picturesHere">
+      <!-- <div><img src="im/red.jpg" style="width: 300px" alt="">
+            <p><a href="https://msj.by/katolicheskie-xramy/krasnyj-kostel-v-minske/ ">Красный костел
+            </a></p>
+        </div> -->
+    </section>
+
+    <section id="bigPicture"></section>
+
+    <script>
+      let gallery = [
+        {
+          fname: ["red.jpg", "red1.jpg", "red2.jpg"],
+          wpic: "300",
+          title: [
+            "Красный костел",
+            "Красный костел зимой",
+            "Красный костел весной",
+          ],
+          link: "https://msj.by/katolicheskie-xramy/krasnyj-kostel-v-minske/",
+          description:
+            "В храме святого Симеона и святой Елены находится полномасштабная копия Туринской Плащаницы.",
+        },
+        {
+          fname: ["troi.jpg", "troi1.jpg", "troi2.jpg"],
+          wpic: "300",
+          title: [
+            "Троицкое предместье",
+            "Троицкое предместье с высоты",
+            "Жизнь в троицком предместье",
+          ],
+          link: "https://www.belarus.by/ru/travel/belarus-life/trinity-suburb",
+          description:
+            "Троицкое предместье — исторический район города Минска, расположенный в северо-восточной части исторического центра на левом берегу реки Свислочь.",
+        },
+        {
+          fname: ["mir.jpg", "mir1.jpg", "mir2.jpg"],
+          wpic: "300",
+          title: [
+            "Мирский замок",
+            "Дорога в Мирский замок",
+            "Вход в Мирский замок",
+          ],
+          link: "https://mirzamak.by/",
+          description:
+            "Построенный в начале XVI в. магнатом Ю. И. Ильиничем замок стал первым частнособственническим замком на землях Белоруссии.",
+        },
+      ];
+
+      function redraw() {
+        let s = "";
+
+        for (i = 0; i < gallery.length; i++) {
+          s += `
+            <div id="pic${i}"><img src="im/${gallery[i].fname[0]}" style="width: ${gallery[i].wpic}px" 
+                alt="${gallery[i].title}" 
+                onmouseover = "timerId = setTimeout('rollImage(${i})',1000) "
+                onmouseout = "clearTimeout(timerId)"
+        onclick="showPicture('${gallery[i].fname[0]}',
+        '${gallery[i].description}')">
+            <p><a href="${gallery[i].link}" target="_blank">
+                ${gallery[i].title[0]}
+            </a></p>
+        </div>
+            `;
+        }
+        picturesHere.innerHTML = s;
+        makeTitle();
+      }
+      p1 = gallery[0].fname.length; //2
+      k = 0; //global
+
+      function rollImage(index) {
+        if (++k >= p1) {
+          k = 0;
+        }
+        mid = document.getElementById(`pic${index}`);
+        mid.innerHTML = `<img src="im/${gallery[index].fname[k]}"
+         style="width: ${gallery[index].wpic}px" 
+            alt="${gallery[index].title}" 
+            
+            onmouseout = "stop()"
+        onclick="showPicture('${gallery[index].fname[k]}',
+        '${gallery[index].description}')">
+            <p><a href="${gallery[index].link}" target="_blank">
+                ${gallery[index].title[k]}
+            </a></p>`;
+
+        console.log("roll");
+        makeTitle();
+        timerId = setTimeout(`rollImage(${index})`, 1000);
+      }
+      function stop() {
+        console.log("stop");
+        clearTimeout(timerId);
+        redraw();
+      }
+
+      function showPicture(p, d) {
+        // alert(p + ' ' + d);
+        bigPicture.innerHTML = `
+            <img onclick="bigPicture.innerHTML=''" src="im/${p}" style="width: 1000px">
+            <p>${d}</p>
+            `;
+      }
+
+      function makeTitle() {
+        let f = document.getElementById("picturesHere");
+        let p = f.getElementsByTagName("p");
+        let a = f.getElementsByTagName("a");
+        // p и a - массивы
+
+        for (j = 0; j < p.length; j++) {
+          p[j].style = `
+                font-size: 18pt;
+                text-align: center;
+                
+        `;
+          a[j].style = `
+        text-decoration: none;
+        color: blue;
+        font-style: italic;
+        `;
+        }
+      } //makeTitle()
+    </script>
+  </body>
+</html>
